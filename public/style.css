@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  /* display: flex */
 }
 
 a {
@@ -18,4 +19,18 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.productlist {
+  display: flex;
+  justify-content: center;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid lightgray;
+  padding: 20px;
+  margin: 20px;
+  align-items: center;
 }

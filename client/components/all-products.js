@@ -1,13 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import SingleProduct from './single-product'
 
 const AllProducts = props => {
   return (
     <div>
       <h3>All Products</h3>
-      <img src={props.allProducts[0].imageUrl} />
-      <div>{props.allProducts[0].name}</div>
-      {/* for each element generate <SingleProduct /> */}
+      <div className="productlist">
+        {props.allProducts.map(product => {
+          return <SingleProduct key={product.id} product={product} />
+        })}
+      </div>
     </div>
   )
 }
