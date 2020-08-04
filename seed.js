@@ -52,7 +52,7 @@ const products = [
   },
   {
     name: 'Shin Ramyun',
-    price: 1.5,
+    price: 1,
     description:
       "At the first taste of Shin Ramyun's signature broth, there is no question how Shin Ramyun has become the most recognized ramyun in the world. With Shin Ramyun, you will enjoy a piping hot meal of aromatic spices, fresh vegetables, and wonderfully chewy noodles in the convenience of 4 minutes. Drop in an egg, chop up some vegetables, or throw in some sliced meat. There really is no limit how you can make Shin Ramyun into your favorite home cooked meal. We already made it great, be creative and try to make it even better! Nongshim is a Korean food company that produces instant noodles and snacks, which has led the Korean food industry since their establishment in September 1965. Since 1994, Nongshim America, Inc. Has successfully brought their exciting tastes of Korea to north America. In the new millennium, they continue to expand into a market-leading global company, dedicated to the improved health and lifestyles of their customers. Nongshim is dedicated to bringing you high quality products, packed with delicious and unique flavors.",
     imageUrl:
