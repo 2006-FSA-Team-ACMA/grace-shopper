@@ -9,7 +9,10 @@ const Product = require('./product')
  *    BlogPost.belongsTo(User)
  */
 
+// order table has userId
 User.hasMany(Order)
+
+// Order.belongsTo(User)
 Order.belongsToMany(Product, {through: 'Order_Item'})
 Product.belongsToMany(Order, {through: 'Order_Item'})
 

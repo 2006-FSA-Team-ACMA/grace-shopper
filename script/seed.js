@@ -143,11 +143,17 @@ async function seed() {
         return Order.create(order)
       })
     )
-    // add orders to user
+    // add associated orders to user
     for (let i = 0; i < createdUsers.length; i++) {
-      createdUsers[i].addOrder(
+      await createdUsers[i].addOrder(
         createdOrders[Math.floor(Math.random() * createdOrders.length)]
       )
+
+      // await createdUsers[0].addOrder(createdOrders[0])
+      // await createdUsers[1].addOrder(createdOrders[0])
+      // await createdUsers[2].addOrder(createdOrders[0])
+      // await createdUsers[3].addOrder(createdOrders[0])
+      // await createdUsers[4].addOrder(createdOrders[0])
     }
   } catch (err) {
     console.log(err)
