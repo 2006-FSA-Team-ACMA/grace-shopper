@@ -3,6 +3,49 @@
 const db = require('../server/db')
 const {User} = require('../server/db/models')
 const {Product} = require('../server/db/models')
+const {Order} = require('../server/db/models')
+
+// create dummy orders
+// create array of associations of orders with user, orders with products
+
+const orders = [
+  {
+    status: 'complete'
+  },
+  {
+    status: 'incomplete'
+  },
+  {
+    status: 'complete'
+  },
+  {
+    status: 'incomplete'
+  },
+  {
+    status: 'complete'
+  },
+  {
+    status: 'incomplete'
+  },
+  {
+    status: 'complete'
+  },
+  {
+    status: 'incomplete'
+  },
+  {
+    status: 'complete'
+  },
+  {
+    status: 'incomplete'
+  },
+  {
+    status: 'complete'
+  },
+  {
+    status: 'incomplete'
+  }
+]
 
 const users = [
   {
@@ -85,16 +128,27 @@ const products = [
 async function seed() {
   try {
     await db.sync({force: true})
-    await Promise.all(
+    const createdUsers = await Promise.all(
       users.map(user => {
         return User.create(user)
       })
     )
-    await Promise.all(
+    const createdProducts = await Promise.all(
       products.map(product => {
         return Product.create(product)
       })
     )
+    const createdOrders = await Promise.all(
+      orders.map(order => {
+        return Order.create(order)
+      })
+    )
+    // add orders to user
+    for (let i = 0; i < createdUsers.length; i++) {
+      createdUsers[i].addOrder(
+        createdOrders[Math.floor(Math.random() * createdOrders.length)]
+      )
+    }
   } catch (err) {
     console.log(err)
   }
