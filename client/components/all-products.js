@@ -1,18 +1,29 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import SingleProduct from './single-product'
+import {fetchProducts} from '../store/allProducts'
 
-const AllProducts = props => {
-  return (
-    <div>
-      <h3>All Products</h3>
-      <div className="productlist">
-        {props.allProducts.map(product => {
-          return <SingleProduct key={product.id} product={product} />
-        })}
+class AllProducts extends React.Component {
+  async componentDidMount() {
+    try {
+      await this.props.getProducts()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>All Products</h3>
+        <div className="productlist">
+          {this.props.allProducts.map(product => {
+            return <SingleProduct key={product.id} product={product} />
+          })}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 const mapState = state => {
@@ -21,4 +32,12 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(AllProducts)
+const mapDispatch = dispatch => {
+  return {
+    getProducts: () => {
+      dispatch(fetchProducts())
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(AllProducts)
