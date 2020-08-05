@@ -4,46 +4,45 @@ const db = require('../server/db')
 const {User} = require('../server/db/models')
 const {Product} = require('../server/db/models')
 const {Order} = require('../server/db/models')
-
-// create dummy orders
-// create array of associations of orders with user, orders with products
+const {Order_Item} = require('../server/db/models')
+const {COMPLETE, INCOMPLETE} = require('../server/db/models/modelVar')
 
 const orders = [
   {
-    status: 'complete'
+    status: COMPLETE
   },
   {
-    status: 'incomplete'
+    status: INCOMPLETE
   },
   {
-    status: 'complete'
+    status: COMPLETE
   },
   {
-    status: 'incomplete'
+    status: INCOMPLETE
   },
   {
-    status: 'complete'
+    status: COMPLETE
   },
   {
-    status: 'incomplete'
+    status: INCOMPLETE
   },
   {
-    status: 'complete'
+    status: COMPLETE
   },
   {
-    status: 'incomplete'
+    status: INCOMPLETE
   },
   {
-    status: 'complete'
+    status: COMPLETE
   },
   {
-    status: 'incomplete'
+    status: INCOMPLETE
   },
   {
-    status: 'complete'
+    status: COMPLETE
   },
   {
-    status: 'incomplete'
+    status: INCOMPLETE
   }
 ]
 
@@ -82,6 +81,29 @@ const users = [
     firstName: 'Natalie',
     lastName: 'Garbanzo',
     email: 'ngarbanz@noodle.com'
+  }
+]
+
+const orderItems = [
+  {
+    orderId: 1,
+    productId: 1,
+    quantity: 4
+  },
+  {
+    orderId: 2,
+    productId: 3,
+    quantity: 5
+  },
+  {
+    orderId: 3,
+    productId: 4,
+    quantity: 1
+  },
+  {
+    orderId: 5,
+    productId: 3,
+    quantity: 3
   }
 ]
 
@@ -143,17 +165,22 @@ async function seed() {
         return Order.create(order)
       })
     )
+    const createdOrderItems = await Promise.all(
+      orderItems.map(orderItem => {
+        return Order_Item.create(orderItem)
+      })
+    )
+
     // add associated orders to user
     for (let i = 0; i < createdUsers.length; i++) {
       await createdUsers[i].addOrder(
         createdOrders[Math.floor(Math.random() * createdOrders.length)]
       )
-
-      // await createdUsers[0].addOrder(createdOrders[0])
-      // await createdUsers[1].addOrder(createdOrders[0])
-      // await createdUsers[2].addOrder(createdOrders[0])
-      // await createdUsers[3].addOrder(createdOrders[0])
-      // await createdUsers[4].addOrder(createdOrders[0])
+    }
+    for (let j = 0; j < createdOrders.length; j++) {
+      await createdOrders[j].addProducts(
+        createdProducts[Math.floor(Math.random() * createdProducts.length)]
+      )
     }
   } catch (err) {
     console.log(err)

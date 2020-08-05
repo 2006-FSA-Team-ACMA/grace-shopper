@@ -1,0 +1,7 @@
+const COMPLETE = 'COMPLETE'
+const INCOMPLETE = 'INCOMPLETE'
+
+module.exports = {
+  COMPLETE,
+  INCOMPLETE
+}

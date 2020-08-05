@@ -10,11 +10,12 @@ const Product = db.define('product', {
     }
   },
   price: {
+    // add getter func to convert to decimal
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0,
     validate: {
-      notEmpty: true
+      min: 0
     }
   },
   description: {
@@ -31,11 +32,15 @@ const Product = db.define('product', {
     allowNull: false
   },
   spiceRating: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     validate: {
       min: 1,
       max: 5
     }
+  },
+  inventory: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1
   }
 })
 
