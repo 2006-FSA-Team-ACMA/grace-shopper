@@ -30,26 +30,13 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (
-  firstName,
-  lastName,
-  email,
-  password,
-  method
-) => async dispatch => {
+export const auth = (user, method) => async dispatch => {
   let res
   try {
-    console.log('trying to create new user!')
-    res = await axios.post(`/auth/${method}`, {
-      firstName,
-      lastName,
-      email,
-      password
-    })
+    res = await axios.post(`/auth/${method}`, user)
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
-
   try {
     dispatch(getUser(res.data))
     history.push('/home')
