@@ -30,14 +30,13 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, method) => async dispatch => {
+export const auth = (user, method) => async dispatch => {
   let res
   try {
-    res = await axios.post(`/auth/${method}`, {email, password})
+    res = await axios.post(`/auth/${method}`, user)
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
-
   try {
     dispatch(getUser(res.data))
     history.push('/home')
@@ -49,6 +48,7 @@ export const auth = (email, password, method) => async dispatch => {
 export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
+    console.log('you are logged out')
     dispatch(removeUser())
     history.push('/login')
   } catch (err) {
