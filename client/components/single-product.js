@@ -8,9 +8,11 @@ const SingleProduct = props => {
       <Link to={`/products/${product.id}`}>
         <img src={product.imageUrl} />
         <div>{product.name}</div>
-        <div> ${product.price} </div>
-        <button type="button">Add to Cart</button>
       </Link>
+      <div> ${product.price} </div>
+      <button type="button" onClick={() => props.addToGuestCart(product)}>
+        Add to Cart
+      </button>
     </div>
   )
 }

@@ -1,6 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getGuestCart} from '../store/guestCart'
+import {
+  getGuestCart,
+  deleteGuestCartItem,
+  incrementQuantity,
+  decrementQuantity
+} from '../store/guestCart'
 
 class Cart extends React.Component {
   componentDidMount() {
@@ -17,12 +22,35 @@ class Cart extends React.Component {
     return (
       <div>
         <h3>YOUR CART</h3>
-        {cart.map(item => {
+        {Object.keys(cart).map(key => {
           return (
-            <div key={item.id}>
-              <h5> {item.name} </h5>
-              {/* <img src={item.imageUrl} /> */}
-              <h5> ${item.price} </h5>
+            <div key={key}>
+              <h5> {cart[key].name} </h5>
+              {/* <img src={cart[key].imageUrl} /> */}
+              <h5> ${cart[key].price} </h5>
+
+              <h5>
+                <button
+                  type="button"
+                  onClick={() => this.props.decrementQuantity(cart[key])}
+                >
+                  -
+                </button>
+                Quantity: {cart[key].quantity}
+                <button
+                  type="button"
+                  onClick={() => this.props.incrementQuantity(cart[key])}
+                >
+                  +
+                </button>
+              </h5>
+
+              <button
+                type="button"
+                onClick={() => this.props.deleteGuestCartItem(cart[key])}
+              >
+                Delete
+              </button>
               <br />
               <br />
             </div>
@@ -41,7 +69,10 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getGuestCart: () => dispatch(getGuestCart())
+    getGuestCart: () => dispatch(getGuestCart()),
+    deleteGuestCartItem: product => dispatch(deleteGuestCartItem(product)),
+    incrementQuantity: product => dispatch(incrementQuantity(product)),
+    decrementQuantity: product => dispatch(decrementQuantity(product))
   }
 }
 

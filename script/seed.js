@@ -87,7 +87,7 @@ const users = [
 const orderItems = [
   {
     orderId: 1,
-    productId: 1,
+    productId: 2,
     quantity: 4
   },
   {
@@ -179,7 +179,8 @@ async function seed() {
     }
     for (let j = 0; j < createdOrders.length; j++) {
       await createdOrders[j].addProducts(
-        createdProducts[Math.floor(Math.random() * createdProducts.length)]
+        createdProducts[Math.floor(Math.random() * createdProducts.length)],
+        {through: {quantity: 1}}
       )
     }
   } catch (err) {

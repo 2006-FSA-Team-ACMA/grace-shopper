@@ -3,21 +3,21 @@
  */
 const GET_GUEST_CART = 'GET_GUEST_CART'
 const ADD_GUEST_CART = 'ADD_GUEST_CART'
+const DELETE_GUEST_CART_ITEM = 'DELETE_GUEST_CART_ITEM'
+const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY'
+const DECREMENT_QUANTITY = 'DECREMENT_QUANTITY'
 
 /**
  * INITIAL STATE
  */
-// const defaultCart = []
 
 // Set default cart to a different value for testing
-const defaultGuestCart = []
-
-// [{id: 1, name: 'Indomie Mi Goreng', price: 1, imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/91iG5S-XqdL._SX569_PIbundle-30,TopRight,0,0_SX569SY439SH20_.jpg'}, {id: 2, name: 'Shin Ramyun', price: 2, imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/81MYTNAsmQL._SX679_.jpg'}]
-// [{id: 2, name: 'Shin Ramyun', price: 2, imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/81MYTNAsmQL._SX679_.jpg'}]
+const defaultGuestCart = {}
 
 /**
  * ACTION CREATORS
  */
+
 export const getGuestCart = () => {
   const guestCart =
     JSON.parse(window.localStorage.getItem('guestCart')) || defaultGuestCart
@@ -28,6 +28,18 @@ export const addToGuestCart = product => {
   return {type: ADD_GUEST_CART, product}
 }
 
+export const incrementQuantity = product => {
+  return {type: INCREMENT_QUANTITY, product}
+}
+
+export const decrementQuantity = product => {
+  return {type: DECREMENT_QUANTITY, product}
+}
+
+export const deleteGuestCartItem = product => {
+  return {type: DELETE_GUEST_CART_ITEM, product}
+}
+
 /**
  * REDUCER
  */
@@ -36,7 +48,29 @@ export default function(state = defaultGuestCart, action) {
     case GET_GUEST_CART:
       return action.guestCart
     case ADD_GUEST_CART:
-      return [...state, action.product]
+      const newCart = {...state, [action.product.id]: action.product}
+      if (state[action.product.id]) {
+        newCart[action.product.id].quantity =
+          newCart[action.product.id].quantity + 1
+      } else {
+        newCart[action.product.id].quantity = 1
+      }
+      window.localStorage.setItem('guestCart', JSON.stringify(newCart))
+      return newCart
+    case INCREMENT_QUANTITY:
+      const incrementCart = {...state}
+      incrementCart[action.product.id].quantity =
+        incrementCart[action.product.id].quantity + 1
+      return incrementCart
+    case DECREMENT_QUANTITY:
+      const decrementCart = {...state}
+      decrementCart[action.product.id].quantity =
+        decrementCart[action.product.id].quantity - 1
+      return decrementCart
+    case DELETE_GUEST_CART_ITEM:
+      const deletedCart = {...state}
+      delete deletedCart[action.product.id]
+      return deletedCart
     default:
       return state
   }
