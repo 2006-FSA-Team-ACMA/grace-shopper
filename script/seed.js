@@ -50,37 +50,44 @@ const users = [
   {
     firstName: 'John',
     lastName: 'Wang',
-    email: 'johnwang@noodle.com'
+    email: 'johnwang@noodle.com',
+    password: 'pass'
   },
   {
     firstName: 'Philip',
     lastName: 'Lim',
-    email: 'plim@noodle.com'
+    email: 'plim@noodle.com',
+    password: 'passa'
   },
   {
     firstName: 'Vera',
     lastName: 'Wang',
-    email: 'vw@noodle.com'
+    email: 'vw@noodle.com',
+    password: 'passe'
   },
   {
     firstName: 'Marcus',
     lastName: 'Johnson',
-    email: 'mjohnson@noodle.com'
+    email: 'mjohnson@noodle.com',
+    password: 'passo'
   },
   {
     firstName: 'Jennifer',
     lastName: 'Smith',
-    email: 'js@noodle.com'
+    email: 'js@noodle.com',
+    password: 'passu'
   },
   {
     firstName: 'Linda',
     lastName: 'Fillmore',
-    email: 'lfillmore@noodle.com'
+    email: 'lfillmore@noodle.com',
+    password: 'passoa'
   },
   {
     firstName: 'Natalie',
     lastName: 'Garbanzo',
-    email: 'ngarbanz@noodle.com'
+    email: 'ngarbanz@noodle.com',
+    password: 'passoe'
   }
 ]
 
