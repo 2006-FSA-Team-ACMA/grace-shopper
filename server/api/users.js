@@ -2,8 +2,19 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
+const isAdminMiddleware = (req, res, next) => {
+  const currentUser = req.user
+  if (currentUser && currentUser.isAdmin) {
+    next()
+  } else {
+    const error = new Error('Nope')
+    error.status = 401
+    next(error)
+  }
+}
+
 // GET All Users
-router.get('/', async (req, res, next) => {
+router.get('/', isAdminMiddleware, async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: ['firstName', 'lastName', 'id', 'email']
@@ -15,7 +26,7 @@ router.get('/', async (req, res, next) => {
 })
 
 // GET Single User
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
     const id = req.params.id
     const product = await User.findByPk(id, {
@@ -63,7 +74,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 // //DELETE Single User
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
     const {id} = req.params
     const user = await User.findByPk(id)

@@ -51,7 +51,8 @@ const users = [
     firstName: 'John',
     lastName: 'Wang',
     email: 'johnwang@noodle.com',
-    password: 'pass'
+    password: 'pass',
+    isAdmin: true
   },
   {
     firstName: 'Philip',
