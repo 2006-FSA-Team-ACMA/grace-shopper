@@ -13,6 +13,17 @@ const isAdminMiddleware = (req, res, next) => {
   }
 }
 
+const isUserMiddleware = (req, res, next) => {
+  const currentUser = req.user
+  if (currentUser) {
+    next()
+  } else {
+    const error = new Error('Nope')
+    error.status = 401
+    next(error)
+  }
+}
+
 // GET All Users
 router.get('/', isAdminMiddleware, async (req, res, next) => {
   try {
@@ -26,7 +37,7 @@ router.get('/', isAdminMiddleware, async (req, res, next) => {
 })
 
 // GET Single User
-router.get('/:id', isAdminMiddleware, async (req, res, next) => {
+router.get('/:id', isUserMiddleware, async (req, res, next) => {
   try {
     const id = req.params.id
     const product = await User.findByPk(id, {
@@ -39,6 +50,7 @@ router.get('/:id', isAdminMiddleware, async (req, res, next) => {
 })
 
 // //POST Single "new" User
+
 router.post('/', async (req, res, next) => {
   try {
     const {firstName, lastName, email, password} = req.body
@@ -55,7 +67,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // PUT Single User
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isUserMiddleware, async (req, res, next) => {
   try {
     const {id} = req.params
     const {firstName, lastName, email, password} = req.body
