@@ -37,7 +37,7 @@ router.get('/', isAdminMiddleware, async (req, res, next) => {
 })
 
 // GET Single User
-router.get('/:id', isUserMiddleware, async (req, res, next) => {
+router.get('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
     const id = req.params.id
     const product = await User.findByPk(id, {
@@ -67,7 +67,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // PUT Single User
-router.put('/:id', isUserMiddleware, async (req, res, next) => {
+router.put('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
     const {id} = req.params
     const {firstName, lastName, email, password} = req.body
