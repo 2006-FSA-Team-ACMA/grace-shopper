@@ -61,15 +61,18 @@ export default function(state = defaultGuestCart, action) {
       const incrementCart = {...state}
       incrementCart[action.product.id].quantity =
         incrementCart[action.product.id].quantity + 1
+      window.localStorage.setItem('guestCart', JSON.stringify(incrementCart))
       return incrementCart
     case DECREMENT_QUANTITY:
       const decrementCart = {...state}
       decrementCart[action.product.id].quantity =
         decrementCart[action.product.id].quantity - 1
+      window.localStorage.setItem('guestCart', JSON.stringify(decrementCart))
       return decrementCart
     case DELETE_GUEST_CART_ITEM:
       const deletedCart = {...state}
       delete deletedCart[action.product.id]
+      window.localStorage.setItem('guestCart', JSON.stringify(deletedCart))
       return deletedCart
     default:
       return state
