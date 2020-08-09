@@ -6,6 +6,7 @@ const ADD_GUEST_CART = 'ADD_GUEST_CART'
 const DELETE_GUEST_CART_ITEM = 'DELETE_GUEST_CART_ITEM'
 const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY'
 const DECREMENT_QUANTITY = 'DECREMENT_QUANTITY'
+const GUEST_CHECKOUT = 'GUEST_CHECKOUT'
 
 /**
  * INITIAL STATE
@@ -39,6 +40,10 @@ export const decrementQuantity = product => {
 export const deleteGuestCartItem = product => {
   return {type: DELETE_GUEST_CART_ITEM, product}
 }
+
+export const guestCheckout = () => ({
+  type: GUEST_CHECKOUT
+})
 
 /**
  * REDUCER
@@ -74,6 +79,13 @@ export default function(state = defaultGuestCart, action) {
       delete deletedCart[action.product.id]
       window.localStorage.setItem('guestCart', JSON.stringify(deletedCart))
       return deletedCart
+    case GUEST_CHECKOUT:
+      const checkoutGuestCart = {}
+      window.localStorage.setItem(
+        'guestCart',
+        JSON.stringify(checkoutGuestCart)
+      )
+      return checkoutGuestCart
     default:
       return state
   }

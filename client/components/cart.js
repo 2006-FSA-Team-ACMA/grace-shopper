@@ -4,7 +4,8 @@ import {
   getGuestCart,
   deleteGuestCartItem,
   incrementQuantity,
-  decrementQuantity
+  decrementQuantity,
+  guestCheckout
 } from '../store/guestCart'
 
 class Cart extends React.Component {
@@ -56,6 +57,9 @@ class Cart extends React.Component {
             </div>
           )
         })}
+        <button type="button" onClick={this.props.guestCheckout}>
+          Checkout
+        </button>
       </div>
     )
   }
@@ -72,7 +76,8 @@ const mapDispatch = dispatch => {
     getGuestCart: () => dispatch(getGuestCart()),
     deleteGuestCartItem: product => dispatch(deleteGuestCartItem(product)),
     incrementQuantity: product => dispatch(incrementQuantity(product)),
-    decrementQuantity: product => dispatch(decrementQuantity(product))
+    decrementQuantity: product => dispatch(decrementQuantity(product)),
+    guestCheckout: () => dispatch(guestCheckout())
   }
 }
 
