@@ -21,10 +21,7 @@ class SingleProductDetail extends React.Component {
         <img src={product.imageUrl} />
         <div>{product.name}</div>
         <div> ${product.price} </div>
-        <button
-          type="button"
-          onClick={() => this.props.addToGuestCart(product)}
-        >
+        <button type="button" onClick={() => this.props.cart(product)}>
           Add to Cart
         </button>
         <div>{product.description}</div>
