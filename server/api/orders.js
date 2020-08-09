@@ -25,7 +25,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 //POST Single "new" order
-router.post('/', isAdminMiddleware, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const {status, userId} = req.body
     const order = await Order.create({
