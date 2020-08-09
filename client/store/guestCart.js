@@ -46,6 +46,10 @@ export const guestCheckout = () => ({
 })
 
 /**
+ * THUNK
+ */
+
+/**
  * REDUCER
  */
 export default function(state = defaultGuestCart, action) {
