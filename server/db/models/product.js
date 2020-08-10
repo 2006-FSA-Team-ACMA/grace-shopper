@@ -10,8 +10,13 @@ const Product = db.define('product', {
     }
   },
   price: {
-    // add getter func to convert to decimal
     type: Sequelize.INTEGER,
+    get() {
+      return this.getDataValue('price') / 100
+    },
+    set(price) {
+      this.setDataValue('price', price * 100)
+    },
     allowNull: false,
     defaultValue: 0,
     validate: {

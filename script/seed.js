@@ -97,7 +97,8 @@ const orderItems = [
 const products = [
   {
     name: 'Indomie Mi Goreng',
-    price: 100,
+    price: 199,
+
     description:
       "Indomie Mi Goreng is an instant noodles product line made under the Indomie brand by the Indofood company, the world's largest instant noodle manufacturer, located in Indonesia. Mi Goreng is Indonesian for 'fried noodle'. Indomie Mi Goreng is simply abbreviated as Indomie goreng by most Indonesians. Indomie Goreng is a type of instant noodle served without soup and is stirred well with soysauce, oil, and seasoning. This instant noodle derived its inspiration from traditional Indonesian dish called mi goreng, a variant of fried noodle common in Indonesia. Many street vendors sell it and traditional mi goreng is considered as common food by the people. This product has gained a cult following in Indonesia and in various other countries, such as Nigeria and Australia.",
     imageUrl:
@@ -115,7 +116,9 @@ const products = [
   },
   {
     name: 'Sapporo Ichiban Original',
-    price: 200,
+
+    price: 299,
+
     description:
       'The Sapporo Ichiban Original soup is a combination of soy sauce and chicken broth that is infused with the aroma of sweet vegetables, garlic and a hint of ginger. The soup married with the bouncy texture of our noodles balances out to make one very satiating meal.',
     imageUrl:
@@ -124,7 +127,9 @@ const products = [
   },
   {
     name: 'Lucky Me! Instant Pancit Canton',
-    price: 100,
+
+    price: 199,
+
     description:
       'Pancit, or Filipino birthday noodles are similar to chowmein. They are thicker and chewier than typical instant noodles. This version, the Lucky Me pancit canton chili & citrus is a classic favorite. The noodles are the perfect consistency and the buttery chili & citrus flavor packs a little heat and a lot of yummy flavor.',
 
