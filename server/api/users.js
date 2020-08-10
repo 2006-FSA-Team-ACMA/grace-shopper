@@ -1,28 +1,7 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
+const {isAdminMiddleware, isSameUserMiddleware} = require('./middleware')
 module.exports = router
-
-const isAdminMiddleware = (req, res, next) => {
-  const currentUser = req.user
-  if (currentUser && currentUser.isAdmin) {
-    next()
-  } else {
-    const error = new Error('Nope')
-    error.status = 401
-    next(error)
-  }
-}
-
-const isUserMiddleware = (req, res, next) => {
-  const currentUser = req.user
-  if (currentUser) {
-    next()
-  } else {
-    const error = new Error('Nope')
-    error.status = 401
-    next(error)
-  }
-}
 
 // GET All Users
 router.get('/', isAdminMiddleware, async (req, res, next) => {
@@ -37,7 +16,7 @@ router.get('/', isAdminMiddleware, async (req, res, next) => {
 })
 
 // GET Single User
-router.get('/:id', isAdminMiddleware, async (req, res, next) => {
+router.get('/:id', isSameUserMiddleware, async (req, res, next) => {
   try {
     const id = req.params.id
     const product = await User.findByPk(id, {
@@ -49,8 +28,7 @@ router.get('/:id', isAdminMiddleware, async (req, res, next) => {
   }
 })
 
-// //POST Single "new" User
-
+// POST Single "new" User
 router.post('/', async (req, res, next) => {
   try {
     const {firstName, lastName, email, password} = req.body
@@ -67,7 +45,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // PUT Single User
-router.put('/:id', isAdminMiddleware, async (req, res, next) => {
+router.put('/:id', isSameUserMiddleware, async (req, res, next) => {
   try {
     const {id} = req.params
     const {firstName, lastName, email, password} = req.body

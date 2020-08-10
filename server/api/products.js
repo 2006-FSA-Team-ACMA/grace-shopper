@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
+const {isAdminMiddleware} = require('./middleware')
 module.exports = router
 
 // GET All Products
@@ -23,8 +24,8 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-//POST Single "new" Product
-router.post('/', async (req, res, next) => {
+// POST Single "new" Product
+router.post('/', isAdminMiddleware, async (req, res, next) => {
   try {
     const {name, imageUrl, spiceRating, price, description} = req.body
     const product = await Product.create({
@@ -41,7 +42,7 @@ router.post('/', async (req, res, next) => {
 })
 
 //PUT Single Product
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
     const {id} = req.params
     const {name, imageUrl, spiceRating, price, description} = req.body
@@ -61,7 +62,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //DELETE Single Product
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
     const {id} = req.params
     const product = await Product.findByPk(id)

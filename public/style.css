@@ -21,9 +21,17 @@ form div {
   display: inline-block;
 }
 
+img {
+  max-width: 150px;
+  object-fit: contain;
+  padding: 10px;
+  background-color: transparent;
+}
+
 .productlist {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .product {
@@ -33,4 +41,5 @@ form div {
   padding: 20px;
   margin: 20px;
   align-items: center;
+  width: 25%;
 }
