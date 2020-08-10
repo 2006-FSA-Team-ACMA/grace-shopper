@@ -2,19 +2,27 @@
 
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import {getUserCart} from '../store/userCart'
+import {store} from '../store'
 
 class UserCart extends Component {
-  componentDidMount() {
-    this.props.usercart()
+  async componentDidMount(getState) {
+    try {
+      const res = await this.props
+      console.log('store>>>>>', res)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   render() {
+    console.log('RENDERING???', this.props.items)
     let addedProducts = this.props.items.length ? (
       this.props.items.map(item => {
         return (
           <li className="collection-item avatar" key={item.id}>
+            <h1>LENGTH EXISTS::::</h1>
             <div className="item-img">
               <img src={item.imageUrl} alt={item.imageUrl} className="" />
             </div>
@@ -28,14 +36,6 @@ class UserCart extends Component {
               <p>
                 <b>Quantity: {item.quantity}</b>
               </p>
-              <div className="add-remove">
-                <Link to="/usercart">
-                  <i className="material-icons">arrow_drop_up</i>
-                </Link>
-                <Link to="/usercart">
-                  <i className="material-icons">arrow_drop_down</i>
-                </Link>
-              </div>
               <button
                 type="button"
                 className="waves-effect waves-light btn pink remove"
@@ -61,17 +61,20 @@ class UserCart extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state', state)
+  console.log('MSTP>>>>>')
+  console.log('state', state.userCart.addedProducts)
   return {
-    items: state.userCart.addedProducts
+    items: state.userCart.addedProducts,
+    getState: state.getState
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  console.log('.........>>>>>>')
-  return {
-    usercart: () => dispatch(getUserCart())
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   console.log('.........>>>>>>')
+//   return {
+//     getUserCart: () => dispatch(getUserCart())
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserCart)
+// export default connect(mapStateToProps, mapDispatchToProps)(UserCart)
+export default connect(mapStateToProps)(UserCart)

@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/singleProduct'
 import {addToGuestCart} from '../store/guestCart'
+import {addToUserCart} from '../store/userCart'
 
 class SingleProductDetail extends React.Component {
   async componentDidMount() {
@@ -15,15 +16,28 @@ class SingleProductDetail extends React.Component {
 
   render() {
     const product = this.props.product || {}
-
+    const {isLoggedIn} = this.props
     return (
       <div className="product">
         <img src={product.imageUrl} />
         <div>{product.name}</div>
         <div> ${product.price} </div>
-        <button type="button" onClick={() => this.props.cart(product)}>
-          Add to Cart
-        </button>
+        {isLoggedIn && (
+          <button
+            type="button"
+            onClick={() => this.props.addToUserCart(product)}
+          >
+            Add to Cart
+          </button>
+        )}
+        {!isLoggedIn && (
+          <button
+            type="button"
+            onClick={() => this.props.addToGuestCart(product)}
+          >
+            Add to Cart
+          </button>
+        )}
         <div>{product.description}</div>
       </div>
     )
@@ -32,7 +46,8 @@ class SingleProductDetail extends React.Component {
 
 const mapState = state => {
   return {
-    product: state.singleProduct
+    product: state.singleProduct,
+    isLoggedIn: !!state.user.id
   }
 }
 
@@ -41,6 +56,9 @@ const mapDispatch = dispatch => {
     getProduct: id => dispatch(fetchProduct(id)),
     addToGuestCart: product => {
       dispatch(addToGuestCart(product))
+    },
+    addToUserCart: product => {
+      dispatch(addToUserCart(product))
     }
   }
 }
