@@ -191,7 +191,7 @@ async function seed() {
 
     // add associated orders to user
     for (let i = 0; i < createdOrders.length; i++) {
-      if (i % 2 === 0) {
+      if (i % 2 === 1) {
         const randUser =
           createdUsers[Math.floor(Math.random() * createdUsers.length)]
         await createdOrders[i].setUser(randUser)
