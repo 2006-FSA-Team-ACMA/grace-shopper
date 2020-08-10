@@ -14,6 +14,9 @@ const Product = db.define('product', {
     get() {
       return this.getDataValue('price') / 100
     },
+    set(price) {
+      this.setDataValue('price', price * 100)
+    },
     allowNull: false,
     defaultValue: 0,
     validate: {
