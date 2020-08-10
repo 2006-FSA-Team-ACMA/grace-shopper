@@ -62,12 +62,15 @@ class Cart extends React.Component {
 }
 
 const mapState = state => {
+  console.log('guest>>', state)
   return {
     guestCart: state.guestCart
   }
 }
 
 const mapDispatch = dispatch => {
+  console.log('guestDISPATCH>>')
+
   return {
     getGuestCart: () => dispatch(getGuestCart()),
     deleteGuestCartItem: product => dispatch(deleteGuestCartItem(product)),
