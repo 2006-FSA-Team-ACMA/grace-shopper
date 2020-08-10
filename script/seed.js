@@ -97,7 +97,7 @@ const orderItems = [
 const products = [
   {
     name: 'Indomie Mi Goreng',
-    price: 199,
+    price: 2,
 
     description:
       "Indomie Mi Goreng is an instant noodles product line made under the Indomie brand by the Indofood company, the world's largest instant noodle manufacturer, located in Indonesia. Mi Goreng is Indonesian for 'fried noodle'. Indomie Mi Goreng is simply abbreviated as Indomie goreng by most Indonesians. Indomie Goreng is a type of instant noodle served without soup and is stirred well with soysauce, oil, and seasoning. This instant noodle derived its inspiration from traditional Indonesian dish called mi goreng, a variant of fried noodle common in Indonesia. Many street vendors sell it and traditional mi goreng is considered as common food by the people. This product has gained a cult following in Indonesia and in various other countries, such as Nigeria and Australia.",
@@ -107,7 +107,7 @@ const products = [
   },
   {
     name: 'Shin Ramyun',
-    price: 150,
+    price: 1.5,
     description:
       "At the first taste of Shin Ramyun's signature broth, there is no question how Shin Ramyun has become the most recognized ramyun in the world. With Shin Ramyun, you will enjoy a piping hot meal of aromatic spices, fresh vegetables, and wonderfully chewy noodles in the convenience of 4 minutes. Drop in an egg, chop up some vegetables, or throw in some sliced meat. There really is no limit how you can make Shin Ramyun into your favorite home cooked meal. We already made it great, be creative and try to make it even better! Nongshim is a Korean food company that produces instant noodles and snacks, which has led the Korean food industry since their establishment in September 1965. Since 1994, Nongshim America, Inc. Has successfully brought their exciting tastes of Korea to north America. In the new millennium, they continue to expand into a market-leading global company, dedicated to the improved health and lifestyles of their customers. Nongshim is dedicated to bringing you high quality products, packed with delicious and unique flavors.",
     imageUrl:
@@ -117,7 +117,7 @@ const products = [
   {
     name: 'Sapporo Ichiban Original',
 
-    price: 299,
+    price: 2.99,
 
     description:
       'The Sapporo Ichiban Original soup is a combination of soy sauce and chicken broth that is infused with the aroma of sweet vegetables, garlic and a hint of ginger. The soup married with the bouncy texture of our noodles balances out to make one very satiating meal.',
@@ -128,7 +128,7 @@ const products = [
   {
     name: 'Lucky Me! Instant Pancit Canton',
 
-    price: 199,
+    price: 1.99,
 
     description:
       'Pancit, or Filipino birthday noodles are similar to chowmein. They are thicker and chewier than typical instant noodles. This version, the Lucky Me pancit canton chili & citrus is a classic favorite. The noodles are the perfect consistency and the buttery chili & citrus flavor packs a little heat and a lot of yummy flavor.',
