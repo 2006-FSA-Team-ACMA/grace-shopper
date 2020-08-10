@@ -46,6 +46,24 @@ const orders = [
   }
 ]
 
+const createOrders = num => {
+  const moreOrders = []
+  for (let i = 0; i < num; i++) {
+    let status
+    if (i % 2 === 0) {
+      status = COMPLETE
+    } else {
+      status = INCOMPLETE
+    }
+    moreOrders.push({
+      status: status
+    })
+  }
+  return moreOrders
+}
+
+const moreOrders = createOrders(20)
+
 const users = [
   {
     firstName: 'John',
@@ -155,6 +173,25 @@ const products = [
   }
 ]
 
+const multiplyProducts = num => {
+  const moreProducts = []
+
+  for (let i = 0; i < num; i++) {
+    const j = Math.floor(Math.random() * products.length)
+    let randProd = products[j]
+    moreProducts.push({
+      name: randProd.name + ' ' + i,
+      price: randProd.price,
+      description: randProd.description,
+      imageUrl: randProd.imageUrl,
+      spiceRating: randProd.spiceRating
+    })
+  }
+  return moreProducts
+}
+
+const moreProducts = multiplyProducts(100)
+
 async function seed() {
   try {
     await db.sync({force: true})
@@ -164,27 +201,37 @@ async function seed() {
       })
     )
     const createdProducts = await Promise.all(
-      products.map(product => {
+      moreProducts.map(product => {
         return Product.create(product)
       })
     )
     const createdOrders = await Promise.all(
-      orders.map(order => {
+      moreOrders.map(order => {
         return Order.create(order)
       })
     )
-    const createdOrderItems = await Promise.all(
+    await Promise.all(
       orderItems.map(orderItem => {
         return Order_Item.create(orderItem)
       })
     )
 
+    // // add associated orders to user
+    // for (let i = 0; i < createdUsers.length; i++) {
+    //   await createdUsers[i].addOrder(
+    //     createdOrders[Math.floor(Math.random() * createdOrders.length)]
+    //   )
+    // }
+
     // add associated orders to user
-    for (let i = 0; i < createdUsers.length; i++) {
-      await createdUsers[i].addOrder(
-        createdOrders[Math.floor(Math.random() * createdOrders.length)]
-      )
+    for (let i = 0; i < createdOrders.length; i++) {
+      if (i % 2 === 0) {
+        const randUser =
+          createdUsers[Math.floor(Math.random() * createdUsers.length)]
+        await createdOrders[i].setUser(randUser)
+      }
     }
+
     for (let j = 0; j < createdOrders.length; j++) {
       await createdOrders[j].addProducts(
         createdProducts[Math.floor(Math.random() * createdProducts.length)],
