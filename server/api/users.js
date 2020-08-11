@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const router = require('express').Router()
 const {User, Order, Order_Item, Product} = require('../db/models')
 const {isAdminMiddleware, isSameUserMiddleware} = require('./middleware')
@@ -116,3 +117,20 @@ router.post('/:userId/orders', async (req, res, next) => {
     next(err)
   }
 })
+
+router.delete(
+  '/:userId/orders/:orderId/items/:itemId',
+  async (req, res, next) => {
+    try {
+      const {userId, orderId, itemId} = req.params
+      await Order.destroy({
+        where: {id: orderId}
+      })
+
+      //   res.sendStatus(204)
+    } catch (err) {
+      console.log(err)
+      next(err)
+    }
+  }
+)

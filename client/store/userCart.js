@@ -52,6 +52,16 @@ export const fetchReduceInCart = (item, userId) => async dispatch => {
   }
 }
 
+export const deleteUserCartItem = (item, userId) => async dispatch => {
+  try {
+    console.log('REDUX STORE USERCART ITEM >>> ', item)
+    await axios.delete(`/api/users/${userId}`, {data: item})
+    dispatch(fetchUserCart(userId))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 // Reducer
 export default function(state = initialState, action) {
   switch (action.type) {
