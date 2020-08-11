@@ -10,7 +10,7 @@ const SingleProduct = props => {
         <div>{product.name}</div>
       </Link>
       <div> ${product.price} </div>
-      <button type="button" onClick={() => props.addToGuestCart(product)}>
+      <button type="button" onClick={() => props.cart(product)}>
         Add to Cart
       </button>
     </div>
