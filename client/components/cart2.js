@@ -6,7 +6,7 @@ import {
   incrementQuantity,
   decrementQuantity
 } from '../store/guestCart'
-import {fetchUserCart} from '../store/userCart'
+import {fetchUserCart, fetchAddToCart} from '../store/userCart'
 
 class Cart2 extends React.Component {
   componentDidMount() {
@@ -33,6 +33,7 @@ class Cart2 extends React.Component {
     console.log('CART 2 >>>>', this.props.userCart)
     console.log('CART 2 USER >>>', this.props.user)
     const cart = this.props.userCart || []
+    const userId = this.props.userId
 
     return (
       <div>
@@ -51,10 +52,10 @@ class Cart2 extends React.Component {
                 >
                   -
                 </button>
-                Quantity: {'TBD'}
+                Quantity: {item.order_item.quantity}
                 <button
                   type="button"
-                  onClick={() => this.props.incrementQuantity(cart[key])}
+                  onClick={() => this.props.incrementAddToCart(item, userId)}
                 >
                   +
                 </button>
@@ -90,7 +91,9 @@ const mapDispatch = dispatch => {
     deleteGuestCartItem: product => dispatch(deleteGuestCartItem(product)),
     incrementQuantity: product => dispatch(incrementQuantity(product)),
     decrementQuantity: product => dispatch(decrementQuantity(product)),
-    getUserCart: id => dispatch(fetchUserCart(id))
+    getUserCart: id => dispatch(fetchUserCart(id)),
+    incrementAddToCart: (product, userId) =>
+      dispatch(fetchAddToCart(product, userId))
   }
 }
 
