@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import SingleProduct from './single-product'
 import {fetchProducts} from '../store/allProducts'
 import {addToGuestCart} from '../store/guestCart'
-import {fetchAddToCart} from '../store/userCart'
+import {fetchAddInCart} from '../store/userCart'
 
 class AllProducts extends React.Component {
   async componentDidMount() {
@@ -59,7 +59,7 @@ const mapDispatch = dispatch => {
       dispatch(addToGuestCart(product))
     },
     addToUserCart: (product, userId) => {
-      dispatch(fetchAddToCart(product, userId))
+      dispatch(fetchAddInCart(product, userId))
     }
   }
 }

@@ -6,7 +6,11 @@ import {
   incrementQuantity,
   decrementQuantity
 } from '../store/guestCart'
-import {fetchUserCart, fetchAddToCart} from '../store/userCart'
+import {
+  fetchUserCart,
+  fetchAddInCart,
+  fetchReduceInCart
+} from '../store/userCart'
 
 class Cart2 extends React.Component {
   componentDidMount() {
@@ -48,7 +52,7 @@ class Cart2 extends React.Component {
               <h5>
                 <button
                   type="button"
-                  onClick={() => this.props.decrementQuantity(cart[key])}
+                  onClick={() => this.props.decrementFromCart(item, userId)}
                 >
                   -
                 </button>
@@ -93,7 +97,9 @@ const mapDispatch = dispatch => {
     decrementQuantity: product => dispatch(decrementQuantity(product)),
     getUserCart: id => dispatch(fetchUserCart(id)),
     incrementAddToCart: (product, userId) =>
-      dispatch(fetchAddToCart(product, userId))
+      dispatch(fetchAddInCart(product, userId)),
+    decrementFromCart: (product, userId) =>
+      dispatch(fetchReduceInCart(product, userId))
   }
 }
 

@@ -93,19 +93,22 @@ router.get('/:userId/orders', async (req, res, next) => {
 
 router.post('/:userId/orders', async (req, res, next) => {
   try {
-    const product = req.body
+    const {item: product, quantity} = req.body
+    console.log('QUANTITY >>>> ', quantity)
     const {userId} = req.params
     const incompleteOrder = await Order.findOne({
       where: {userId: userId, status: 'INCOMPLETE'},
       include: {model: Product}
     })
+    console.log('INCOMPLETE ORDER ID >>>> ', incompleteOrder.id)
+    console.log('INCOMPLETE PRODUCT ID >>>> ', product.id)
     let newOrderItem = await Order_Item.findOrCreate({
       where: {orderId: incompleteOrder.id, productId: product.id},
       defaults: {
         quantity: 1
       }
     })
-    await newOrderItem[0].update({quantity: newOrderItem[0].quantity + 1})
+    await newOrderItem[0].update({quantity: quantity})
 
     res.json(newOrderItem[0])
   } catch (err) {

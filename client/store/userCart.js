@@ -27,12 +27,28 @@ export const fetchUserCart = userId => async dispatch => {
   }
 }
 
-export const fetchAddToCart = (product, userId) => async dispatch => {
+export const fetchAddInCart = (item, userId) => async dispatch => {
+  let quantity
+  if (item.order_item) {
+    quantity = item.order_item.quantity + 1
+  } else {
+    quantity = 1
+  }
   try {
-    await axios.post(`/api/users/${userId}/orders`, product)
+    await axios.post(`/api/users/${userId}/orders`, {item, quantity})
     dispatch(fetchUserCart(userId))
   } catch (error) {
-    console(error)
+    console.error(error)
+  }
+}
+
+export const fetchReduceInCart = (item, userId) => async dispatch => {
+  const quantity = item.order_item.quantity - 1
+  try {
+    await axios.post(`/api/users/${userId}/orders`, {item, quantity})
+    dispatch(fetchUserCart(userId))
+  } catch (error) {
+    console.error(error)
   }
 }
 
