@@ -17,7 +17,6 @@ class Cart2 extends React.Component {
   componentDidMount() {
     try {
       this.props.getGuestCart()
-      console.log('CART 2 USER ID>>>>', this.props.userId)
       this.props.getUserCart(this.props.userId)
     } catch (error) {
       console.error('error')
@@ -28,20 +27,15 @@ class Cart2 extends React.Component {
     if (this.props.userId !== prevProps.userId) {
       const asyncGet = async () => {
         await this.props.getUserCart(this.props.userId)
-        console.log('COMPONENTDIDUDPDATE -- USER CART >>>', this.props.userCart)
       }
       asyncGet()
     }
   }
 
   render() {
-    console.log('CART 2 >>>>', this.props.userCart)
-    console.log('CART 2 props >>>', this.props)
     const cart = this.props.userCart || []
     const userId = this.props.userId
-    console.log('this.props.userCart[0] ', cart[0])
-
-    return (
+    return cart && cart.length > 0 ? (
       <div>
         <h3>YOUR CART</h3>
         {cart.map(item => {
@@ -92,6 +86,10 @@ class Cart2 extends React.Component {
           </button>
         }
       </div>
+    ) : (
+      <h3>
+        Your cart is empty. <p>Fill it up with some delicious noodles!</p>
+      </h3>
     )
   }
 }
