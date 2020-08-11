@@ -19,7 +19,6 @@ class Cart extends React.Component {
 
   render() {
     const cart = this.props.guestCart || {}
-    console.log('guestCart: ', cart)
     return (
       <div>
         <h3>YOUR CART</h3>

@@ -43,7 +43,6 @@ router.post('/guest', async (req, res, next) => {
         })
       })
     )
-    console.log('products: ', products)
     res.status(201).json(createdOrder)
   } catch (err) {
     next(err)
