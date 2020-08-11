@@ -9,7 +9,8 @@ import {
   fetchUserCart,
   fetchAddInCart,
   fetchReduceInCart,
-  deleteUserCartItem
+  deleteUserCartItem,
+  userCartCheckout
 } from '../store/userCart'
 
 class Cart2 extends React.Component {
@@ -35,9 +36,10 @@ class Cart2 extends React.Component {
 
   render() {
     console.log('CART 2 >>>>', this.props.userCart)
-    console.log('CART 2 USER >>>', this.props.user)
+    console.log('CART 2 props >>>', this.props)
     const cart = this.props.userCart || []
     const userId = this.props.userId
+    console.log('this.props.userCart[0] ', cart[0])
 
     return (
       <div>
@@ -76,6 +78,17 @@ class Cart2 extends React.Component {
             </div>
           )
         })}
+        <button
+          type="button"
+          onClick={() =>
+            this.props.userCartCheckout(
+              userId,
+              this.props.userCart[0].order_item.orderId
+            )
+          }
+        >
+          Checkout
+        </button>
       </div>
     )
   }
@@ -101,7 +114,9 @@ const mapDispatch = dispatch => {
     decrementFromCart: (product, userId) =>
       dispatch(fetchReduceInCart(product, userId)),
     deleteUserCartItem: (product, userId) =>
-      dispatch(deleteUserCartItem(product, userId))
+      dispatch(deleteUserCartItem(product, userId)),
+    userCartCheckout: (userId, orderId) =>
+      dispatch(userCartCheckout(userId, orderId))
   }
 }
 

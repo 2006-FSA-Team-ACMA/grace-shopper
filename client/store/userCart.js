@@ -4,6 +4,7 @@ import axios from 'axios'
 // ACTION TYPE
 const GET_USER_CART = 'GET_USER_CART'
 // const ADD_TO_USER_CART = 'ADD_TO_USER_CART'
+const USER_CHECKOUT = 'USER_CHECKOUT'
 
 //this is userCart
 export const initialState = []
@@ -17,10 +18,16 @@ export const getUserCart = cart => {
   }
 }
 
+export const userCheckout = cart => ({
+  type: USER_CHECKOUT,
+  cart
+})
+
 // FETCHES USER'S COMPLETE ORDERS
 export const fetchUserCart = userId => async dispatch => {
   try {
     const {data: order} = await axios.get(`/api/users/${userId}/orders`)
+    console.log('order: ', order)
     dispatch(getUserCart(order.products))
   } catch (error) {
     console.error(error)
@@ -59,6 +66,17 @@ export const deleteUserCartItem = (item, userId) => async dispatch => {
     await axios.delete(
       `/api/users/${userId}/orders/${order.id}/items/${item.id}`
     )
+    dispatch(fetchUserCart(userId))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const userCartCheckout = (userId, orderId) => async dispatch => {
+  try {
+    await axios.put(`api/users/${userId}/orders/${orderId}`, {
+      status: 'COMPLETE'
+    })
     dispatch(fetchUserCart(userId))
   } catch (error) {
     console.error(error)

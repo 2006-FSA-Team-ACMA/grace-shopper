@@ -64,6 +64,19 @@ router.put('/:userId', isSameUserMiddleware, async (req, res, next) => {
   }
 })
 
+// PUT Single User Order
+router.put('/:userId/orders/:orderId', async (req, res, next) => {
+  try {
+    const {orderId} = req.params
+    const order = await Order.findByPk(orderId)
+    const updatedOrder = await order.update(req.body)
+    res.json(updatedOrder)
+  } catch (err) {
+    console.log(err)
+    next(err)
+  }
+})
+
 // //DELETE Single User
 router.delete('/:userId', isAdminMiddleware, async (req, res, next) => {
   try {
@@ -85,7 +98,15 @@ router.get('/:userId/orders', async (req, res, next) => {
       where: {userId: userId, status: 'INCOMPLETE'},
       include: {model: Product}
     })
-    res.json(incompleteOrder[0])
+    if (incompleteOrder[1]) {
+      const newOrder = await Order.findOne({
+        where: {userId: userId, status: 'INCOMPLETE'},
+        include: {model: Product}
+      })
+      res.json(newOrder)
+    } else {
+      res.json(incompleteOrder[0])
+    }
   } catch (err) {
     console.log(err)
     next(err)
