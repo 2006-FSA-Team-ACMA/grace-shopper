@@ -1,3 +1,5 @@
+import Axios from 'axios'
+
 /**
  * ACTION TYPES
  */
@@ -6,6 +8,7 @@ const ADD_GUEST_CART = 'ADD_GUEST_CART'
 const DELETE_GUEST_CART_ITEM = 'DELETE_GUEST_CART_ITEM'
 const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY'
 const DECREMENT_QUANTITY = 'DECREMENT_QUANTITY'
+const GUEST_CHECKOUT = 'GUEST_CHECKOUT'
 
 /**
  * INITIAL STATE
@@ -38,6 +41,28 @@ export const decrementQuantity = product => {
 
 export const deleteGuestCartItem = product => {
   return {type: DELETE_GUEST_CART_ITEM, product}
+}
+
+export const guestCheckout = cart => ({
+  type: GUEST_CHECKOUT,
+  cart
+})
+
+/**
+ * THUNK
+ */
+
+// placeGuestOrder thunk => take in order and add to /orders route
+
+export const placeGuestOrder = order => async dispatch => {
+  try {
+    // need to send status and make sure data populates order_items table
+    // keep in mind order is object of objects
+    const {cart} = await Axios.post('/api/orders/guest', order)
+    dispatch(guestCheckout(cart))
+  } catch (err) {
+    console.log(err.message)
+  }
 }
 
 /**
@@ -74,6 +99,13 @@ export default function(state = defaultGuestCart, action) {
       delete deletedCart[action.product.id]
       window.localStorage.setItem('guestCart', JSON.stringify(deletedCart))
       return deletedCart
+    case GUEST_CHECKOUT:
+      const checkoutGuestCart = {}
+      window.localStorage.setItem(
+        'guestCart',
+        JSON.stringify(checkoutGuestCart)
+      )
+      return checkoutGuestCart
     default:
       return state
   }

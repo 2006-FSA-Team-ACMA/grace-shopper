@@ -27,6 +27,8 @@ export const fetchUserCart = userId => async dispatch => {
   }
 }
 
+// posts order to table
+// then fetches user's orders for purposes of viewing user's order history
 export const fetchAddToCart = (product, userId) => async dispatch => {
   try {
     await axios.post(`/api/users/${userId}/orders`, product)
