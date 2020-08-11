@@ -17,20 +17,13 @@ export const getUserCart = cart => {
   }
 }
 
-// export const addToUserCart = (product) => {
-//   return {
-//     type: ADD_TO_USER_CART,
-//     product,
-//   }
-// }
-
 // FETCHES USER'S COMPLETE ORDERS
 export const fetchUserCart = userId => async dispatch => {
   try {
     const {data: orders} = await axios.get(`/api/users/${userId}/orders`)
     dispatch(getUserCart(orders))
   } catch (error) {
-    console(error)
+    console.error(error)
   }
 }
 

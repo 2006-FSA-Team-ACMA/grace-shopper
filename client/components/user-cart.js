@@ -1,14 +1,14 @@
-//////////////////////////////////
-
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 // import { Link } from 'react-router-dom'
 import {fetchUserCart} from '../store/userCart'
+// import { me } from '../store/user'
 
 class UserCart extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     try {
-      console.log('USER ID >>>>', this.props.userId)
+      console.log('Did I mount')
+      await this.props.getUserCart(this.props.userId)
     } catch (err) {
       console.error(err)
     }
@@ -19,47 +19,54 @@ class UserCart extends Component {
     if (this.props.userId !== prevProps.userId) {
       const asyncGet = async () => {
         await this.props.getUserCart(this.props.userId)
+        console.log('USER CART >>>', this.props.userCart)
       }
       asyncGet()
     }
   }
 
   render() {
-    //   console.log("USER CART >>>>", this.props.userCart)
-    return this.props.userCart.map(item => {
-      return (
-        <div key={item.key}>
-          <h5> {item.name} </h5>
-          {/* <img src={cart[key].imageUrl} /> */}
-          <h5> ${item.price} </h5>
+    const userCart = this.props.userCart || []
+    return (
+      <div>
+        <h3>YOUR USER CART</h3>
 
-          <h5>
-            <button
-              type="button"
-              // onClick={() => this.props.decrementQuantity(cart[key])}
-            >
-              -
-            </button>
-            Quantity: {item.order_item.quantity}
-            <button
-              type="button"
-              // onClick={() => this.props.incrementQuantity(cart[key])}
-            >
-              +
-            </button>
-          </h5>
+        {userCart.map(item => {
+          return (
+            <div key={item.key}>
+              <h5> {item.name} </h5>
+              {/* <img src={cart[key].imageUrl} /> */}
+              <h5> ${item.price} </h5>
 
-          <button
-            type="button"
-            // onClick={() => this.props.deleteGuestCartItem(cart[key])}
-          >
-            Delete
-          </button>
-          <br />
-          <br />
-        </div>
-      )
-    })
+              <h5>
+                <button
+                  type="button"
+                  // onClick={() => this.props.decrementQuantity(cart[key])}
+                >
+                  -
+                </button>
+                Quantity: {item.order_item.quantity}
+                <button
+                  type="button"
+                  // onClick={() => this.props.incrementQuantity(cart[key])}
+                >
+                  +
+                </button>
+              </h5>
+
+              <button
+                type="button"
+                // onClick={() => this.props.deleteGuestCartItem(cart[key])}
+              >
+                Delete
+              </button>
+              <br />
+              <br />
+            </div>
+          )
+        })}
+      </div>
+    )
   }
 }
 
