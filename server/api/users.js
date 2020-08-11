@@ -81,11 +81,11 @@ router.delete('/:userId', isAdminMiddleware, async (req, res, next) => {
 router.get('/:userId/orders', async (req, res, next) => {
   try {
     const {userId} = req.params
-    const incompleteOrder = await Order.findOne({
+    const incompleteOrder = await Order.findOrCreate({
       where: {userId: userId, status: 'INCOMPLETE'},
       include: {model: Product}
     })
-    res.json(incompleteOrder.products)
+    res.json(incompleteOrder[0])
   } catch (err) {
     console.log(err)
     next(err)
@@ -101,8 +101,7 @@ router.post('/:userId/orders', async (req, res, next) => {
       where: {userId: userId, status: 'INCOMPLETE'},
       include: {model: Product}
     })
-    console.log('INCOMPLETE ORDER ID >>>> ', incompleteOrder.id)
-    console.log('INCOMPLETE PRODUCT ID >>>> ', product.id)
+
     let newOrderItem = await Order_Item.findOrCreate({
       where: {orderId: incompleteOrder.id, productId: product.id},
       defaults: {
@@ -122,12 +121,13 @@ router.delete(
   '/:userId/orders/:orderId/items/:itemId',
   async (req, res, next) => {
     try {
-      const {userId, orderId, itemId} = req.params
-      await Order.destroy({
-        where: {id: orderId}
+      const {orderId, itemId} = req.params
+      const orderItem = await Order_Item.findOne({
+        where: {orderId, productId: itemId}
       })
+      await orderItem.destroy()
 
-      //   res.sendStatus(204)
+      res.sendStatus(204)
     } catch (err) {
       console.log(err)
       next(err)
