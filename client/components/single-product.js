@@ -10,7 +10,9 @@ const SingleProduct = props => {
         <img src={product.imageUrl} />
         <div>{product.name}</div>
       </Link>
-      <div> ${product.price} </div>
+      <div>
+        <b>${product.price}</b>{' '}
+      </div>
       <button type="button" onClick={() => props.cart(product, userId)}>
         Add to Cart
       </button>

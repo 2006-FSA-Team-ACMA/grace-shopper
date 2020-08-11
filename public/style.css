@@ -43,6 +43,20 @@ img {
   align-items: center;
   width: 25%;
 }
+
+
+h1 {
+  color: red;
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+.navbar {
+  text-align: center;
+
 .production {
   display: flex;
   flex-direction: row;

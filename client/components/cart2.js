@@ -35,8 +35,7 @@ class Cart2 extends React.Component {
   render() {
     const cart = this.props.userCart || []
     const userId = this.props.userId
-
-    return (
+    return cart && cart.length > 0 ? (
       <div>
         <h3 className="title">YOUR CART</h3>
         <div className="production">
@@ -74,25 +73,37 @@ class Cart2 extends React.Component {
                 >
                   Delete
                 </button>
-                <br />
-                <br />
-              </div>
-            )
-          })}
-        </div>
-        <button
-          type="button"
-          className="title"
-          onClick={() =>
-            this.props.userCartCheckout(
-              userId,
-              this.props.userCart[0].order_item.orderId
-            )
-          }
-        >
-          Checkout
-        </button>
+
+              </h5>
+              <button
+                type="button"
+                onClick={() => this.props.deleteUserCartItem(item, userId)}
+              >
+                Delete
+              </button>
+              <br />
+              <br />
+            </div>
+          )
+        })}
+        {
+          <button
+            type="button"
+            onClick={() =>
+              this.props.userCartCheckout(
+                userId,
+                this.props.userCart[0].order_item.orderId
+              )
+            }
+          >
+            Checkout
+          </button>
+        }
       </div>
+    ) : (
+      <h3>
+        Your cart is empty. <p>Fill it up with some delicious noodles!</p>
+      </h3>
     )
   }
 }
