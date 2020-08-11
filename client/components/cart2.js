@@ -2,11 +2,15 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {
   getGuestCart,
-  deleteGuestCartItem,
   incrementQuantity,
   decrementQuantity
 } from '../store/guestCart'
-import {fetchUserCart, fetchAddToCart} from '../store/userCart'
+import {
+  fetchUserCart,
+  fetchAddInCart,
+  fetchReduceInCart,
+  deleteUserCartItem
+} from '../store/userCart'
 
 class Cart2 extends React.Component {
   componentDidMount() {
@@ -48,7 +52,7 @@ class Cart2 extends React.Component {
               <h5>
                 <button
                   type="button"
-                  onClick={() => this.props.decrementQuantity(cart[key])}
+                  onClick={() => this.props.decrementFromCart(item, userId)}
                 >
                   -
                 </button>
@@ -63,7 +67,7 @@ class Cart2 extends React.Component {
 
               <button
                 type="button"
-                onClick={() => this.props.deleteGuestCartItem(cart[key])}
+                onClick={() => this.props.deleteUserCartItem(item, userId)}
               >
                 Delete
               </button>
@@ -88,12 +92,16 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getGuestCart: () => dispatch(getGuestCart()),
-    deleteGuestCartItem: product => dispatch(deleteGuestCartItem(product)),
     incrementQuantity: product => dispatch(incrementQuantity(product)),
     decrementQuantity: product => dispatch(decrementQuantity(product)),
     getUserCart: id => dispatch(fetchUserCart(id)),
+
     incrementAddToCart: (product, userId) =>
-      dispatch(fetchAddToCart(product, userId))
+      dispatch(fetchAddInCart(product, userId)),
+    decrementFromCart: (product, userId) =>
+      dispatch(fetchReduceInCart(product, userId)),
+    deleteUserCartItem: (product, userId) =>
+      dispatch(deleteUserCartItem(product, userId))
   }
 }
 

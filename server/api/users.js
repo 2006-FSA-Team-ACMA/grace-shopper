@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const router = require('express').Router()
 const {User, Order, Order_Item, Product} = require('../db/models')
 const {isAdminMiddleware, isSameUserMiddleware} = require('./middleware')
@@ -80,11 +81,11 @@ router.delete('/:userId', isAdminMiddleware, async (req, res, next) => {
 router.get('/:userId/orders', async (req, res, next) => {
   try {
     const {userId} = req.params
-    const incompleteOrder = await Order.findOne({
+    const incompleteOrder = await Order.findOrCreate({
       where: {userId: userId, status: 'INCOMPLETE'},
       include: {model: Product}
     })
-    res.json(incompleteOrder.products)
+    res.json(incompleteOrder[0])
   } catch (err) {
     console.log(err)
     next(err)
@@ -93,19 +94,21 @@ router.get('/:userId/orders', async (req, res, next) => {
 
 router.post('/:userId/orders', async (req, res, next) => {
   try {
-    const product = req.body
+    const {item: product, quantity} = req.body
+    console.log('QUANTITY >>>> ', quantity)
     const {userId} = req.params
     const incompleteOrder = await Order.findOne({
       where: {userId: userId, status: 'INCOMPLETE'},
       include: {model: Product}
     })
+
     let newOrderItem = await Order_Item.findOrCreate({
       where: {orderId: incompleteOrder.id, productId: product.id},
       defaults: {
         quantity: 1
       }
     })
-    await newOrderItem[0].update({quantity: newOrderItem[0].quantity + 1})
+    await newOrderItem[0].update({quantity: quantity})
 
     res.json(newOrderItem[0])
   } catch (err) {
@@ -113,3 +116,21 @@ router.post('/:userId/orders', async (req, res, next) => {
     next(err)
   }
 })
+
+router.delete(
+  '/:userId/orders/:orderId/items/:itemId',
+  async (req, res, next) => {
+    try {
+      const {orderId, itemId} = req.params
+      const orderItem = await Order_Item.findOne({
+        where: {orderId, productId: itemId}
+      })
+      await orderItem.destroy()
+
+      res.sendStatus(204)
+    } catch (err) {
+      console.log(err)
+      next(err)
+    }
+  }
+)
