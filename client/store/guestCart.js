@@ -52,12 +52,8 @@ export const guestCheckout = cart => ({
  * THUNK
  */
 
-// placeGuestOrder thunk => take in order and add to /orders route
-
 export const placeGuestOrder = order => async dispatch => {
   try {
-    // need to send status and make sure data populates order_items table
-    // keep in mind order is object of objects
     const {cart} = await Axios.post('/api/orders/guest', order)
     dispatch(guestCheckout(cart))
   } catch (err) {
