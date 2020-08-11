@@ -1,80 +1,87 @@
-//////////////////////////////////
-
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 // import { Link } from 'react-router-dom'
-import {getUserCart} from '../store/userCart'
-import {store} from '../store'
+import {fetchUserCart} from '../store/userCart'
+// import { me } from '../store/user'
 
 class UserCart extends Component {
-  async componentDidMount(getState) {
+  async componentDidMount() {
     try {
-      const res = await this.props
-      console.log('store>>>>>', res)
+      console.log('Did I mount')
+      await this.props.getUserCart(this.props.userId)
     } catch (err) {
       console.error(err)
     }
   }
 
-  render() {
-    console.log('RENDERING???', this.props.items)
-    let addedProducts = this.props.items.length ? (
-      this.props.items.map(item => {
-        return (
-          <li className="collection-item avatar" key={item.id}>
-            <h1>LENGTH EXISTS::::</h1>
-            <div className="item-img">
-              <img src={item.imageUrl} alt={item.imageUrl} className="" />
-            </div>
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.userId !== prevProps.userId) {
+      const asyncGet = async () => {
+        await this.props.getUserCart(this.props.userId)
+        console.log('USER CART >>>', this.props.userCart)
+      }
+      asyncGet()
+    }
+  }
 
-            <div className="item-desc">
-              <span className="title">{item.name}</span>
-              <p>{item.description}</p>
-              <p>
-                <b>Price: {item.price}$</b>
-              </p>
-              <p>
-                <b>Quantity: {item.quantity}</b>
-              </p>
+  render() {
+    const userCart = this.props.userCart || []
+    return (
+      <div>
+        <h3>YOUR USER CART</h3>
+
+        {userCart.map(item => {
+          return (
+            <div key={item.key}>
+              <h5> {item.name} </h5>
+              {/* <img src={cart[key].imageUrl} /> */}
+              <h5> ${item.price} </h5>
+
+              <h5>
+                <button
+                  type="button"
+                  // onClick={() => this.props.decrementQuantity(cart[key])}
+                >
+                  -
+                </button>
+                Quantity: {item.order_item.quantity}
+                <button
+                  type="button"
+                  // onClick={() => this.props.incrementQuantity(cart[key])}
+                >
+                  +
+                </button>
+              </h5>
+
               <button
                 type="button"
-                className="waves-effect waves-light btn pink remove"
+                // onClick={() => this.props.deleteGuestCartItem(cart[key])}
               >
-                Remove
+                Delete
               </button>
+              <br />
+              <br />
             </div>
-          </li>
-        )
-      })
-    ) : (
-      <p>Nothing.</p>
-    )
-    return (
-      <div className="container">
-        <div className="UserCart">
-          <h5>You have ordered:</h5>
-          <ul className="collection">{addedProducts}</ul>
-        </div>
+          )
+        })}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  console.log('MSTP>>>>>')
-  console.log('state', state.userCart.addedProducts)
+  console.log('redux store >>>>', state)
   return {
-    items: state.userCart.addedProducts,
-    getState: state.getState
+    userCart: state.userCart,
+    userId: state.user.id
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   console.log('.........>>>>>>')
-//   return {
-//     getUserCart: () => dispatch(getUserCart())
-//   }
-// }
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserCart: userId => dispatch(fetchUserCart(userId))
+  }
+}
 
-// export default connect(mapStateToProps, mapDispatchToProps)(UserCart)
-export default connect(mapStateToProps)(UserCart)
+export default connect(mapStateToProps, mapDispatchToProps)(UserCart)
