@@ -44,6 +44,7 @@ img {
   width: 25%;
 }
 
+
 h1 {
   color: red;
   text-align: center;
@@ -55,4 +56,57 @@ h3 {
 
 .navbar {
   text-align: center;
+
+.production {
+  display: flex;
+  flex-direction: row;
+  border: 5px solid lightgray;
+  padding: 20px;
+  margin: 20px;
+  align-items: center;
+  width: 85%;
+}
+
+/*  */
+
+.item {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid lightgray;
+  padding: 10px;
+  margin: 10px;
+  align-items: center;
+  width: 25%;
+}
+.box {
+  display: flex;
+  border: 5px solid red;
+
+  justify-items: space-between;
+  flex-direction: column;
+}
+.material-icons {
+  font-size: 2.4em;
+  cursor: pointer;
+}
+.card {
+  width: 300px;
+}
+.card .card-image .card-title {
+  display: flex;
+  color: black;
+  font-weight: 400;
+  flex: 1;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #ee6e73;
+  display: block;
+  margin-bottom: 20px;
+}
+.collection .collection-item img {
+  width: 150px;
+  margin-right: 25px;
 }

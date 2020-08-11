@@ -10,7 +10,7 @@ class AllProducts extends React.Component {
     try {
       await this.props.getProducts()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
   render() {
@@ -42,7 +42,6 @@ class AllProducts extends React.Component {
 }
 
 const mapState = state => {
-  console.log('redux store >>>>', state)
   return {
     allProducts: state.allProducts,
     isLoggedIn: !!state.user.id,

@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/singleProduct'
 import {addToGuestCart} from '../store/guestCart'
+import {fetchAddInCart} from '../store/userCart'
 
 class SingleProductDetail extends React.Component {
   async componentDidMount() {
@@ -24,7 +25,9 @@ class SingleProductDetail extends React.Component {
         {isLoggedIn && (
           <button
             type="button"
-            onClick={() => this.props.addToUserCart(product)}
+            onClick={() =>
+              this.props.addToUserCart(product, this.props.user.id)
+            }
           >
             Add to Cart
           </button>
@@ -46,7 +49,8 @@ class SingleProductDetail extends React.Component {
 const mapState = state => {
   return {
     product: state.singleProduct,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
@@ -55,7 +59,9 @@ const mapDispatch = dispatch => {
     getProduct: id => dispatch(fetchProduct(id)),
     addToGuestCart: product => {
       dispatch(addToGuestCart(product))
-    }
+    },
+    addToUserCart: (product, userId) =>
+      dispatch(fetchAddInCart(product, userId))
   }
 }
 

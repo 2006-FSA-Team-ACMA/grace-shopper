@@ -27,7 +27,6 @@ export const userCheckout = cart => ({
 export const fetchUserCart = userId => async dispatch => {
   try {
     const {data: order} = await axios.get(`/api/users/${userId}/orders`)
-    console.log('order: ', order)
     dispatch(getUserCart(order.products))
   } catch (error) {
     console.error(error)
@@ -62,7 +61,6 @@ export const fetchReduceInCart = (item, userId) => async dispatch => {
 export const deleteUserCartItem = (item, userId) => async dispatch => {
   try {
     const {data: order} = await axios.get(`/api/users/${userId}/orders`)
-    console.log('CURRENT ORDER >>>> ', order)
     await axios.delete(
       `/api/users/${userId}/orders/${order.id}/items/${item.id}`
     )
