@@ -5,9 +5,11 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
+  <div className="navbar">
     <h1>
-      <Link to="/products">RAMEN SHOP</Link>
+      <Link to="/products">
+        <h1>RAMEN SHOP</h1>
+      </Link>
     </h1>
     <nav>
       {isLoggedIn ? (
@@ -18,9 +20,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             Logout
           </a>
           <Link to="/products">All Products</Link>
-          <Link to="/cart">Cart</Link>
-          <Link to="/cart2">User Cart</Link>
-          {/* <Link to="/usercart ">UserCart</Link> */}
+          <Link to="/cart2">Cart</Link>
         </div>
       ) : (
         <div>
@@ -29,7 +29,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/signup">Sign Up</Link>
           <Link to="/products">All Products</Link>
           <Link to="/cart">Cart</Link>
-          <Link to="/cart2">User Cart</Link>
         </div>
       )}
     </nav>

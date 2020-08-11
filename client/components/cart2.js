@@ -78,17 +78,19 @@ class Cart2 extends React.Component {
             </div>
           )
         })}
-        <button
-          type="button"
-          onClick={() =>
-            this.props.userCartCheckout(
-              userId,
-              this.props.userCart[0].order_item.orderId
-            )
-          }
-        >
-          Checkout
-        </button>
+        {
+          <button
+            type="button"
+            onClick={() =>
+              this.props.userCartCheckout(
+                userId,
+                this.props.userCart[0].order_item.orderId
+              )
+            }
+          >
+            Checkout
+          </button>
+        }
       </div>
     )
   }

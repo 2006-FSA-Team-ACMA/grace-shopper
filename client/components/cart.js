@@ -19,8 +19,7 @@ class Cart extends React.Component {
 
   render() {
     const cart = this.props.guestCart || {}
-    console.log('guestCart: ', cart)
-    return (
+    return cart && Object.keys(cart).length > 0 ? (
       <div>
         <h3>YOUR CART</h3>
         {Object.keys(cart).map(key => {
@@ -61,6 +60,10 @@ class Cart extends React.Component {
           Checkout
         </button>
       </div>
+    ) : (
+      <h3>
+        Your cart is empty. <p>Fill it up with some delicious noodles!</p>
+      </h3>
     )
   }
 }

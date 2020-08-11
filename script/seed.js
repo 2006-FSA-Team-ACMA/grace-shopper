@@ -136,6 +136,30 @@ const products = [
     imageUrl:
       'https://images-na.ssl-images-amazon.com/images/I/51EYbxG%2BKbL.jpg',
     spiceRating: 1
+  },
+  {
+    name: 'Maggi Masala 2-Minute Noodles',
+
+    price: 1.25,
+
+    description:
+      'Bringing you a classic snack directly from India, 2-Minute Masala Spicy Noodles are perfectly convenient for the snacking occasion.Maggi Masala Spicy Noodles are an excellent on-the-go meal by themselves and are delicious to use in soups, salads, frittatas, and stir frys.',
+
+    imageUrl:
+      'https://images-na.ssl-images-amazon.com/images/I/51FydOvdbyL.jpg',
+    spiceRating: 2
+  },
+  {
+    name: 'Maruchan Ramen Noodle Soup Chicken Flavor',
+
+    price: 0.5,
+
+    description:
+      'Maruchan® Ramen Noodle Soup Chicken Flavor. Cooks in 3 minutes. Can be used easily as a main course or as an enhancing side dish. To do this, simply drain off the broth then add any variety of vegetables or your favorite meat before warning in a frying pan or oven.',
+
+    imageUrl:
+      'https://images-na.ssl-images-amazon.com/images/I/81AV%2BOZJO9L._SL1500_.jpg',
+    spiceRating: 1
   }
 ]
 
