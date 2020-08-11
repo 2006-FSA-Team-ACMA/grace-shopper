@@ -110,3 +110,8 @@ h3 {
   width: 150px;
   margin-right: 25px;
 }
+
+.nav {
+  background-color: #a8dadc;
+  color: #1d3557;
+}

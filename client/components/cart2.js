@@ -42,11 +42,11 @@ class Cart2 extends React.Component {
           {cart.map(item => {
             return (
               <div className="item" key={item.id}>
-                <h5 className=""> {item.name} </h5>
+                <h5 className="title"> {item.name} </h5>
                 <div className="card-image">
                   <img src={item.imageUrl} alt={item.name} />
                 </div>
-                <h5> ${item.price} </h5>
+                <h5 className="title"> ${item.price} </h5>
 
                 <h5>
                   <button
@@ -56,7 +56,9 @@ class Cart2 extends React.Component {
                   >
                     -
                   </button>
-                  Quantity: {item.order_item.quantity}
+                  <h1 className="title">
+                    Quantity: {item.order_item.quantity}
+                  </h1>
                   <button
                     type="button"
                     className=""
@@ -68,7 +70,7 @@ class Cart2 extends React.Component {
 
                 <button
                   type="button"
-                  className=""
+                  className="title"
                   onClick={() => this.props.deleteUserCartItem(item, userId)}
                 >
                   Delete
