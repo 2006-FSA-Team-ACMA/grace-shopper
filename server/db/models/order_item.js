@@ -5,7 +5,7 @@ const Order_Item = db.define('order_item', {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 1,
+    defaultValue: 0,
     validate: {
       notEmpty: true
     }
