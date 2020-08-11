@@ -25,35 +25,26 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-// //POST Single "new" order
-// router.post('/', async (req, res, next) => {
-//   try {
-//     const {status, userId} = req.body
-//     const order = await Order.create({
-//       status,
-//       userId
-//     })
-//     res.status(201).json(order)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
 //POST Single "new" order
 router.post('/guest', async (req, res, next) => {
   try {
     const createdOrder = await Order.create({
       status: 'COMPLETE',
-      userId: null
+      userId: null,
+      include: {model: Product}
     })
-    Object.values(createdOrder).map(product =>
-      Order_Item.create({
-        orderId: createdOrder.id,
-        productId: product.id,
-        quantity: product.quantity
+    const cart = req.body
+    const products = await Promise.all(
+      Object.values(cart).map(async product => {
+        return await Order_Item.create({
+          orderId: createdOrder.id,
+          productId: product.id,
+          quantity: product.quantity
+        })
       })
     )
-    res.status(201).json(order)
+    console.log('products: ', products)
+    res.status(201).json(createdOrder)
   } catch (err) {
     next(err)
   }

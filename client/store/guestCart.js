@@ -58,7 +58,7 @@ export const placeGuestOrder = order => async dispatch => {
   try {
     // need to send status and make sure data populates order_items table
     // keep in mind order is object of objects
-    const {cart} = await Axios.post('/orders/guest', order)
+    const {cart} = await Axios.post('/api/orders/guest', order)
     dispatch(guestCheckout(cart))
   } catch (err) {
     console.log(err.message)
