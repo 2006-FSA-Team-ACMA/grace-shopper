@@ -75,32 +75,25 @@ class Cart2 extends React.Component {
                 >
                   Delete
                 </button>
-
-              </h5>
-              <button
-                type="button"
-                onClick={() => this.props.deleteUserCartItem(item, userId)}
-              >
-                Delete
-              </button>
-              <br />
-              <br />
-            </div>
-          )
-        })}
-        {
-          <button
-            type="button"
-            onClick={() =>
-              this.props.userCartCheckout(
-                userId,
-                this.props.userCart[0].order_item.orderId
-              )
-            }
-          >
-            Checkout
-          </button>
-        }
+                <br />
+                <br />
+              </div>
+            )
+          })}
+          {
+            <button
+              type="button"
+              onClick={() =>
+                this.props.userCartCheckout(
+                  userId,
+                  this.props.userCart[0].order_item.orderId
+                )
+              }
+            >
+              Checkout
+            </button>
+          }
+        </div>
       </div>
     ) : (
       <h3>
