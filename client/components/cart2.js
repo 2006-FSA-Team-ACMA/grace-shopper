@@ -43,43 +43,51 @@ class Cart2 extends React.Component {
 
     return (
       <div>
-        <h3>YOUR CART</h3>
-        {cart.map(item => {
-          return (
-            <div key={item.id}>
-              <h5> {item.name} </h5>
-              {/* <img src={cart.imageUrl} /> */}
-              <h5> ${item.price} </h5>
+        <h3 className="title">YOUR CART</h3>
+        <div className="production">
+          {cart.map(item => {
+            return (
+              <div className="item" key={item.id}>
+                <h5 className=""> {item.name} </h5>
+                <div className="card-image">
+                  <img src={item.imageUrl} alt={item.name} />
+                </div>
+                <h5> ${item.price} </h5>
 
-              <h5>
+                <h5>
+                  <button
+                    type="button"
+                    className=""
+                    onClick={() => this.props.decrementFromCart(item, userId)}
+                  >
+                    -
+                  </button>
+                  Quantity: {item.order_item.quantity}
+                  <button
+                    type="button"
+                    className=""
+                    onClick={() => this.props.incrementAddToCart(item, userId)}
+                  >
+                    +
+                  </button>
+                </h5>
+
                 <button
                   type="button"
-                  onClick={() => this.props.decrementFromCart(item, userId)}
+                  className=""
+                  onClick={() => this.props.deleteUserCartItem(item, userId)}
                 >
-                  -
+                  Delete
                 </button>
-                Quantity: {item.order_item.quantity}
-                <button
-                  type="button"
-                  onClick={() => this.props.incrementAddToCart(item, userId)}
-                >
-                  +
-                </button>
-              </h5>
-
-              <button
-                type="button"
-                onClick={() => this.props.deleteUserCartItem(item, userId)}
-              >
-                Delete
-              </button>
-              <br />
-              <br />
-            </div>
-          )
-        })}
+                <br />
+                <br />
+              </div>
+            )
+          })}
+        </div>
         <button
           type="button"
+          className="title"
           onClick={() =>
             this.props.userCartCheckout(
               userId,
