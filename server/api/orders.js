@@ -1,6 +1,7 @@
 const router = require('express').Router()
-const {Order} = require('../db/models')
+const {Order, Product} = require('../db/models')
 const {isAdminMiddleware} = require('./middleware')
+const Order_Item = require('../db/models/order_item')
 module.exports = router
 
 // GET All orders
@@ -24,14 +25,34 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+// //POST Single "new" order
+// router.post('/', async (req, res, next) => {
+//   try {
+//     const {status, userId} = req.body
+//     const order = await Order.create({
+//       status,
+//       userId
+//     })
+//     res.status(201).json(order)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
 //POST Single "new" order
-router.post('/', async (req, res, next) => {
+router.post('/guest', async (req, res, next) => {
   try {
-    const {status, userId} = req.body
-    const order = await Order.create({
-      status,
-      userId
+    const createdOrder = await Order.create({
+      status: 'COMPLETE',
+      userId: null
     })
+    Object.values(createdOrder).map(product =>
+      Order_Item.create({
+        orderId: createdOrder.id,
+        productId: product.id,
+        quantity: product.quantity
+      })
+    )
     res.status(201).json(order)
   } catch (err) {
     next(err)

@@ -43,7 +43,7 @@ export const deleteGuestCartItem = product => {
   return {type: DELETE_GUEST_CART_ITEM, product}
 }
 
-export const placeGuestOrder = cart => ({
+export const guestCheckout = cart => ({
   type: GUEST_CHECKOUT,
   cart
 })
@@ -52,16 +52,18 @@ export const placeGuestOrder = cart => ({
  * THUNK
  */
 
-// export const placeGuestOrder = (order) => async(dispatch) => {
-//   try {
-//     // need to send status and make sure data populates order_items table
-//     // keep in mind order is object of objects
-//     const { cart } = await Axios.post('/orders', JSON.parse(order));
-//     dispatch(guestCheckout(cart))
-//   } catch(err) {
-//     console.log(err.message)
-//   }
-// }
+// placeGuestOrder thunk => take in order and add to /orders route
+
+export const placeGuestOrder = order => async dispatch => {
+  try {
+    // need to send status and make sure data populates order_items table
+    // keep in mind order is object of objects
+    const {cart} = await Axios.post('/orders/guest', order)
+    dispatch(guestCheckout(cart))
+  } catch (err) {
+    console.log(err.message)
+  }
+}
 
 /**
  * REDUCER
