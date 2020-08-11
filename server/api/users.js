@@ -116,7 +116,6 @@ router.get('/:userId/orders', async (req, res, next) => {
 router.post('/:userId/orders', async (req, res, next) => {
   try {
     const {item: product, quantity} = req.body
-    console.log('QUANTITY >>>> ', quantity)
     const {userId} = req.params
     const incompleteOrder = await Order.findOne({
       where: {userId: userId, status: 'INCOMPLETE'},

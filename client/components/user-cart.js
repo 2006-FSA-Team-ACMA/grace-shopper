@@ -7,7 +7,6 @@ import {fetchUserCart} from '../store/userCart'
 class UserCart extends Component {
   async componentDidMount() {
     try {
-      console.log('Did I mount')
       await this.props.getUserCart(this.props.userId)
     } catch (err) {
       console.error(err)
@@ -19,7 +18,6 @@ class UserCart extends Component {
     if (this.props.userId !== prevProps.userId) {
       const asyncGet = async () => {
         await this.props.getUserCart(this.props.userId)
-        console.log('USER CART >>>', this.props.userCart)
       }
       asyncGet()
     }
@@ -71,7 +69,6 @@ class UserCart extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('redux store >>>>', state)
   return {
     userCart: state.userCart,
     userId: state.user.id
