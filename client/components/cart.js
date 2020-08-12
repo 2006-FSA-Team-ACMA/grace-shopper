@@ -21,42 +21,69 @@ class Cart extends React.Component {
     const cart = this.props.guestCart || {}
     return cart && Object.keys(cart).length > 0 ? (
       <div>
-        <h3>YOUR CART</h3>
+        <span>
+          <h3 className="title">YOUR CART</h3>
+          <button
+            type="button"
+            className="title"
+            onClick={() => this.props.placeGuestOrder(cart)}
+          >
+            Checkout
+          </button>
+        </span>
         {Object.keys(cart).map(key => {
           return (
             <div key={key}>
-              <h5> {cart[key].name} </h5>
-              {/* <img src={cart[key].imageUrl} /> */}
-              <h5> ${cart[key].price} </h5>
+              <span className="product2">
+                <div className="product3 title">
+                  <h5 className="title"> {cart[key].name} </h5>
+                </div>
+                <div>
+                  <img src={cart[key].imageUrl} />
+                  <h5> ${cart[key].price}/each </h5>
+                </div>
+                <div className="product3 title">
+                  <div className="product4 title">
+                    <h5 className="product2">
+                      <button
+                        type="button"
+                        className="title"
+                        onClick={() => this.props.decrementQuantity(cart[key])}
+                      >
+                        -
+                      </button>
+                      <br />
+                      <br />
+                      <h1 className="title">Quantity {cart[key].quantity}</h1>
 
-              <h5>
+                      <button
+                        type="button"
+                        className="title"
+                        onClick={() => this.props.incrementQuantity(cart[key])}
+                      >
+                        +
+                      </button>
+                    </h5>
+                  </div>
+                </div>
                 <button
                   type="button"
-                  onClick={() => this.props.decrementQuantity(cart[key])}
+                  className="title"
+                  onClick={() => this.props.deleteGuestCartItem(cart[key])}
                 >
-                  -
+                  Delete
                 </button>
-                Quantity: {cart[key].quantity}
-                <button
-                  type="button"
-                  onClick={() => this.props.incrementQuantity(cart[key])}
-                >
-                  +
-                </button>
-              </h5>
-
-              <button
-                type="button"
-                onClick={() => this.props.deleteGuestCartItem(cart[key])}
-              >
-                Delete
-              </button>
+              </span>
               <br />
               <br />
             </div>
           )
         })}
-        <button type="button" onClick={() => this.props.placeGuestOrder(cart)}>
+        <button
+          className="title"
+          type="button"
+          onClick={() => this.props.placeGuestOrder(cart)}
+        >
           Checkout
         </button>
       </div>

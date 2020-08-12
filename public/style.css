@@ -9,11 +9,14 @@ a {
 
 label {
   display: block;
+  font-family: monospace;
 }
 
 nav a {
   display: inline-block;
   margin: 1em;
+  font-family: monospace;
+  font-size: x-large;
 }
 
 form div {
@@ -55,9 +58,29 @@ img {
   align-items: center;
   width: 90%;
 }
+.product3 {
+  display: flex;
+  flex-direction: row;
+  font-family: cursive;
+  /* border: 5px solid lightgray; */
+  padding: 20px;
+  margin: 20px;
+  align-items: center;
+  width: auto;
+}
+.product4 {
+  display: flex;
+  flex-direction: column;
+  font-family: cursive;
+  /* border: 5px solid lightgray; */
+  padding: 20px;
+  margin: 20px;
+  align-items: center;
+  width: 50%;
+}
 
 h1 {
-  font-family: cursive;
+  font-family: monospace;
   color: #e63946;
   text-align: center;
 }
@@ -69,7 +92,7 @@ h4 {
 
 .production {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   border: 5px solid lightgray;
   padding: 20px;
   margin: 20px;
@@ -113,7 +136,9 @@ h4 {
   color: #ee6e73;
   display: block;
   margin-bottom: 20px;
+  max-width: max-content;
 }
+
 .collection .collection-item img {
   width: 150px;
   margin-right: 25px;
@@ -130,4 +155,9 @@ h4 {
   color: #1d3557;
   justify-content: end;
   margin: 10px;
+}
+span {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
 }
