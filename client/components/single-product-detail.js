@@ -18,12 +18,22 @@ class SingleProductDetail extends React.Component {
     const product = this.props.product || {}
     const {isLoggedIn} = this.props
     return (
-      <div className="product">
-        <img src={product.imageUrl} />
-        <div>{product.name}</div>
-        <div> ${product.price} </div>
+      <div>
+        <div className="product2 title">
+          <div>{product.name}</div>
+        </div>
+        <div className="product2 ">
+          <img src={product.imageUrl} />
+          <div>{product.description}</div>
+        </div>
+
+        <div className="product2">
+          <div> ${product.price} </div>
+        </div>
+
         {isLoggedIn && (
           <button
+            className="title"
             type="button"
             onClick={() =>
               this.props.addToUserCart(product, this.props.user.id)
@@ -35,12 +45,12 @@ class SingleProductDetail extends React.Component {
         {!isLoggedIn && (
           <button
             type="button"
+            className="title"
             onClick={() => this.props.addToGuestCart(product)}
           >
             Add to Cart
           </button>
         )}
-        <div>{product.description}</div>
       </div>
     )
   }
