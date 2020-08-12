@@ -17,7 +17,7 @@ class AllProducts extends React.Component {
     const isLoggedIn = this.props.isLoggedIn
     return (
       <div>
-        <h3>All Products</h3>
+        <h3 className="allproducts">All Products</h3>
         <div className="productlist">
           {this.props.allProducts.map(product => {
             return isLoggedIn ? (

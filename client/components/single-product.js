@@ -8,12 +8,16 @@ const SingleProduct = props => {
     <div className="product">
       <Link to={`/products/${product.id}`}>
         <img src={product.imageUrl} />
-        <div>{product.name}</div>
+        <div className="allproducts ">{product.name}</div>
       </Link>
       <div>
-        <b>${product.price}</b>{' '}
+        <b className="allproducts ">${product.price}</b>{' '}
       </div>
-      <button type="button" onClick={() => props.cart(product, userId)}>
+      <button
+        className="title"
+        type="button"
+        onClick={() => props.cart(product, userId)}
+      >
         Add to Cart
       </button>
     </div>
